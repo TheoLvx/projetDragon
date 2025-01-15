@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perso{% endblock %}
+
+{% block body %}
+    <h1>Perso</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ perso.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ perso.username }}</td>
+            </tr>
+            <tr>
+                <th>Hp</th>
+                <td>{{ perso.hp }}</td>
+            </tr>
+            <tr>
+                <th>Attaque</th>
+                <td>{{ perso.attaque }}</td>
+            </tr>
+            <tr>
+                <th>Intelligence</th>
+                <td>{{ perso.intelligence }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_perso_index') }}">back to list</a>
+
+    <a href="{{ path('app_perso_edit', {'id': perso.id}) }}">edit</a>
+
+    {{ include('perso/_delete_form.html.twig') }}
+{% endblock %}

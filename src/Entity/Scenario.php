@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ScenarioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ScenarioRepository::class)]
@@ -25,8 +27,17 @@ class Scenario
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(inversedBy: 'scenario')]
-    private ?Choix $choix = null;
+    /**
+     * @var Collection<int, Choix>
+     */
+    #[ORM\OneToMany(targetEntity: Choix::class, mappedBy: 'LeScenario')]
+    private Collection $LesChoix;
+
+    public function __construct()
+    {
+        $this->LesChoix = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -81,15 +92,47 @@ class Scenario
         return $this;
     }
 
-    public function getChoix(): ?Choix
+    /**
+     * @return Collection<int, Choix>
+     */
+    public function getLesChoix(): Collection
     {
-        return $this->choix;
+        return $this->LesChoix;
     }
 
-    public function setChoix(?Choix $choix): static
+    public function addLesChoix(Choix $lesChoix): static
     {
-        $this->choix = $choix;
+        if (!$this->LesChoix->contains($lesChoix)) {
+            $this->LesChoix->add($lesChoix);
+            $lesChoix->setLeScenario($this);
+        }
 
         return $this;
     }
+
+    public function removeLesChoix(Choix $lesChoix): static
+    {
+        if ($this->LesChoix->removeElement($lesChoix)) {
+            // set the owning side to null (unless already changed)
+            if ($lesChoix->getLeScenario() === $this) {
+                $lesChoix->setLeScenario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function setLesChoix(array $lesChoix): self
+
+    {
+
+        $this->lesChoix = $lesChoix;
+
+
+
+        return $this;
+
+    }
+
+
 }

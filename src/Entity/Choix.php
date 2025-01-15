@@ -30,15 +30,14 @@ class Choix
     #[ORM\Column]
     private ?int $attaque = null;
 
-    /**
-     * @var Collection<int, Scenario>
-     */
-    #[ORM\OneToMany(targetEntity: Scenario::class, mappedBy: 'choix')]
-    private Collection $scenario;
+    #[ORM\ManyToOne(inversedBy: 'LesChoix')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Scenario $LeScenario = null;
+
+ 
 
     public function __construct()
     {
-        $this->scenario = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,32 +105,14 @@ class Choix
         return $this;
     }
 
-    /**
-     * @return Collection<int, Scenario>
-     */
-    public function getScenario(): Collection
+    public function getLeScenario(): ?Scenario
     {
-        return $this->scenario;
+        return $this->LeScenario;
     }
 
-    public function addScenario(Scenario $scenario): static
+    public function setLeScenario(?Scenario $LeScenario): static
     {
-        if (!$this->scenario->contains($scenario)) {
-            $this->scenario->add($scenario);
-            $scenario->setChoix($this);
-        }
-
-        return $this;
-    }
-
-    public function removeScenario(Scenario $scenario): static
-    {
-        if ($this->scenario->removeElement($scenario)) {
-            // set the owning side to null (unless already changed)
-            if ($scenario->getChoix() === $this) {
-                $scenario->setChoix(null);
-            }
-        }
+        $this->LeScenario = $LeScenario;
 
         return $this;
     }
