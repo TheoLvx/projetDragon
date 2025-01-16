@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Scenario{% endblock %}
+{% block title %}Créer un Nouveau Scenario{% endblock %}
 
 {% block body %}
-    <h1>Create new Scenario</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Créer un Nouveau Scenario</h1>
 
-    {{ include('scenario/_form.html.twig') }}
+    <div class="card p-4 shadow-sm">
+        {{ include('scenario/_form.html.twig') }}
+    </div>
 
-    <a href="{{ path('app_scenario_index') }}">back to list</a>
+    <div class="mt-4">
+        <a href="{{ path('app_scenario_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+        </a>
+    </div>
+</div>
 {% endblock %}

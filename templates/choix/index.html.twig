@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Choix index{% endblock %}
+{% block title %}Liste des choix{% endblock %}
 
 {% block body %}
-    <h1>Choix index</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Liste des choix</h1>
 
-    <table class="table">
-        <thead>
+    <div class="mb-3 text-end">
+        <a href="{{ path('app_choix_new') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Créer un nouveau choix
+        </a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Texte</th>
-                <th>Hp</th>
+                <th>HP</th>
                 <th>Explications</th>
                 <th>Intelligence</th>
                 <th>Attaque</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +34,20 @@
                 <td>{{ choix.intelligence }}</td>
                 <td>{{ choix.attaque }}</td>
                 <td>
-                    <a href="{{ path('app_choix_show', {'id': choix.id}) }}">show</a>
-                    <a href="{{ path('app_choix_edit', {'id': choix.id}) }}">edit</a>
+                    <a href="{{ path('app_choix_show', {'id': choix.id}) }}" class="btn btn-sm btn-info text-white">
+                        <i class="bi bi-eye"></i> Voir
+                    </a>
+                    <a href="{{ path('app_choix_edit', {'id': choix.id}) }}" class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">Pas de choix dans ce scenario</td>
+                <td colspan="7" class="text-center">Pas de choix dans ce scénario</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_choix_new') }}">Create new</a>
+</div>
 {% endblock %}

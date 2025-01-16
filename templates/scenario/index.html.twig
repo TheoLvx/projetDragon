@@ -1,19 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Scenario index{% endblock %}
+{% block title %}Index des scénarios{% endblock %}
 
 {% block body %}
-    <h1>Scenario index</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Liste des scénarios</h1>
 
-    <table class="table">
-        <thead>
+    <div class="mb-3 text-end">
+        <a href="{{ path('app_scenario_new') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Créer un nouveau scénario
+        </a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Nom</th>
                 <th>Contexte</th>
                 <th>Niveau</th>
                 <th>Image</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,23 +30,28 @@
                 <td>{{ scenario.nom }}</td>
                 <td>{{ scenario.contexte }}</td>
                 <td>{{ scenario.niveau }}</td>
-                <td>{{ scenario.image }}</td>
+                <td><img src="{{ scenario.image }}" alt="Image du scénario" class="img-fluid" style="max-width: 100px;"></td>
                 <td>
-                    <a href="{{ path('app_scenario_show', {'id': scenario.id}) }}">show</a>
-                    <a href="{{ path('app_scenario_edit', {'id': scenario.id}) }}">edit</a>
-                    <a href="{{ path('app_choix_scenario', {'id': scenario.id}) }}">Accéder aux choix</a>
-                    <a href="{{ path('app_choix_new', {'idScenario': scenario.id}) }}">Ajouter un choix</a>
-
+                    <a href="{{ path('app_scenario_show', {'id': scenario.id}) }}" class="btn btn-sm btn-info text-white">
+                        <i class="bi bi-eye"></i> Voir
+                    </a>
+                    <a href="{{ path('app_scenario_edit', {'id': scenario.id}) }}" class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil-square"></i> Modifier
+                    </a>
+                    <a href="{{ path('app_choix_scenario', {'nom': scenario.nom}) }}" class="btn btn-sm btn-success">
+                        <i class="bi bi-list"></i> Accéder aux choix
+                    </a>
+                    <a href="{{ path('app_choix_new', {'idScenario': scenario.id}) }}" class="btn btn-sm btn-secondary">
+                        <i class="bi bi-plus"></i> Ajouter un choix
+                    </a>
                 </td>
             </tr>
-            
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6" class="text-center">Aucun scénario trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_scenario_new') }}">Create new</a>
+</div>
 {% endblock %}

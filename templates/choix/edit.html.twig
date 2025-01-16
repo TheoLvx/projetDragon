@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Choix{% endblock %}
+{% block title %}Modifier un Choix{% endblock %}
 
 {% block body %}
-    <h1>Edit Choix</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Modifier le Choix</h1>
 
-    {{ include('choix/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="mb-3">
+        {{ include('choix/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
 
-    <a href="{{ path('app_choix_index') }}">back to list</a>
+    <div class="mb-3">
+        <a href="{{ path('app_choix_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+        </a>
+    </div>
 
-    {{ include('choix/_delete_form.html.twig') }}
+    <div class="mt-4">
+        {{ include('choix/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

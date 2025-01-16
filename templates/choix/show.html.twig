@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Choix{% endblock %}
+{% block title %}Détails du Choix{% endblock %}
 
 {% block body %}
-    <h1>Choix</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Détails du Choix</h1>
 
-    <table class="table">
+    <table class="table table-bordered table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -16,7 +17,7 @@
                 <td>{{ choix.texte }}</td>
             </tr>
             <tr>
-                <th>Hp</th>
+                <th>HP</th>
                 <td>{{ choix.hp }}</td>
             </tr>
             <tr>
@@ -34,9 +35,20 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_choix_index') }}">back to list</a>
+    <div class="mb-3">
+        <a href="{{ path('app_choix_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Retour à la liste
+        </a>
+    </div>
 
-    <a href="{{ path('app_choix_edit', {'id': choix.id}) }}">edit</a>
+    <div class="mb-3">
+        <a href="{{ path('app_choix_edit', {'id': choix.id}) }}" class="btn btn-warning">
+            <i class="bi bi-pencil-square"></i> Modifier
+        </a>
+    </div>
 
-    {{ include('choix/_delete_form.html.twig') }}
+    <div class="mt-4">
+        {{ include('choix/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}
