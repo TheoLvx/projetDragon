@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use App\Validator\StatCumulative;
 use App\Repository\PersoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersoRepository::class)]
+#[StatCumulative] // Appliquer la contrainte au niveau de la classe
 class Perso
 {
     #[ORM\Id]
@@ -24,6 +26,11 @@ class Perso
 
     #[ORM\Column]
     private ?int $intelligence = null;
+
+    // Getters et setters...
+
+
+    // Getters et setters...
 
     public function getId(): ?int
     {
