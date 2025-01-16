@@ -3,21 +3,100 @@
 {% block title %}Scénarios pour le niveau {{ niveau }}{% endblock %}
 
 {% block body %}
-    <h1>Scénarios pour le niveau {{ niveau }}</h1>
+    <style>
+        /* Style général */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
 
-    {% if scenarios is not empty %}
-        <ul>
-            {% for scenario in scenarios %}
-                <li>
-                    <a href="{{ path('app_scenario_show', {'id': scenario.id}) }}">
-                        {{ scenario.nom }} (Contexte : {{ scenario.contexte }})
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Aucun scénario trouvé pour ce niveau.</p>
-    {% endif %}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
 
-    <a href="{{ path('app_scenario_index') }}">Retour à la liste</a>
+        .title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .scenarios-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .scenario-item {
+            background-color: #fff;
+            border-radius: 8px;
+            margin: 10px 0;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .scenario-link {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scenario-name {
+            font-weight: bold;
+        }
+
+        .scenario-context {
+            font-style: italic;
+            color: #666;
+        }
+
+        .no-scenario {
+            font-size: 1.2rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-action:hover {
+            background-color: #2980b9;
+        }
+    </style>
+
+    <div class="container">
+        <h1 class="title">Bienvenue au niveau {{ niveau }}</h1>
+
+        {% if scenarios is not empty %}
+            <div class="scenarios-list">
+                <ul>
+                    {% for scenario in scenarios %}
+                        <li class="scenario-item">
+                            <a href="{{ path('app_choix_result', {'id': scenario.id}) }}" class="scenario-link">
+                                <span class="scenario-name">{{ scenario.nom }}</span>
+                                <span class="scenario-context">{{ scenario.contexte }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="no-scenario">PLUS RIEN A FAIRE C'EST DOMMAGE</p>
+        {% endif %}
+
+    </div>
 {% endblock %}
