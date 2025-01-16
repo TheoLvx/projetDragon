@@ -16,8 +16,8 @@ class StatCumulativeValidator extends ConstraintValidator
             return;
         }
 
-        // Calcul de la somme des statistiques
-        $sum = $value->getHp() + $value->getAttaque() + $value->getIntelligence();
+        // Calcul de la somme des statistiques (uniquement Attaque et Intelligence)
+        $sum = $value->getAttaque() + $value->getIntelligence();
 
         // Vérification si la somme dépasse la limite
         if ($sum > $constraint->limit) {

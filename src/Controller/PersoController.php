@@ -27,21 +27,24 @@ final class PersoController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $perso = new Perso();
+        $perso->setHp(10); // Initialisation de `hp` à 10
+
         $form = $this->createForm(PersoType::class, $perso);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($perso);
             $entityManager->flush();
-    
+
             return $this->redirectToRoute('app_perso_index', [], Response::HTTP_SEE_OTHER);
         }
-    
+
         return $this->render('perso/new.html.twig', [
             'perso' => $perso,
             'form' => $form,
         ]);
     }
+
 
 
     #[Route('/{id}', name: 'app_perso_show', methods: ['GET'])]

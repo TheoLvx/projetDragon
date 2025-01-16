@@ -6,6 +6,7 @@ use App\Entity\Perso;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class PersoType extends AbstractType
 {
@@ -13,7 +14,11 @@ class PersoType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('hp')
+            ->add('hp', IntegerType::class, [
+                'label' => 'Points de vie (HP)',
+                'disabled' => true, // Champ désactivé
+                'attr' => ['class' => 'form-control'],
+            ])            
             ->add('attaque')
             ->add('intelligence')
         ;

@@ -7,7 +7,7 @@ use App\Repository\PersoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersoRepository::class)]
-#[StatCumulative] // Appliquer la contrainte au niveau de la classe
+#[StatCumulative(limit: 5)] // Appliquer la contrainte au niveau de la classe
 class Perso
 {
     #[ORM\Id]
@@ -19,7 +19,7 @@ class Perso
     private ?string $username = null;
 
     #[ORM\Column]
-    private ?int $hp = null;
+    private int $hp = 10; // Initialisation par défaut à 10
 
     #[ORM\Column]
     private ?int $attaque = null;
