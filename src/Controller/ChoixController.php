@@ -42,6 +42,18 @@ final class ChoixController extends AbstractController
         ]);
     }
 
+    #[Route('/scenario/{id}', name: 'app_choix_scenario', methods: ['GET'])]
+    public function indexByScenario(int $id, ChoixRepository $choixRepository): Response
+    {
+        $choix = $choixRepository->findBy(['LeScenario' => $id]);
+
+        return $this->render('choix/index.html.twig', [
+            'choixes' => $choix,
+            'scenario_id' => $id,
+        ]);
+    }
+
+
     #[Route('/{id}', name: 'app_choix_show', methods: ['GET'])]
     public function show(Choix $choix): Response
     {
