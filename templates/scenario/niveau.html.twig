@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scénarios pour le niveau {{ niveau }}{% endblock %}
+
+{% block body %}
+    <h1>Scénarios pour le niveau {{ niveau }}</h1>
+
+    {% if scenarios is not empty %}
+        <ul>
+            {% for scenario in scenarios %}
+                <li>
+                    <a href="{{ path('app_scenario_show', {'id': scenario.id}) }}">
+                        {{ scenario.nom }} (Contexte : {{ scenario.contexte }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun scénario trouvé pour ce niveau.</p>
+    {% endif %}
+
+    <a href="{{ path('app_scenario_index') }}">Retour à la liste</a>
+{% endblock %}
