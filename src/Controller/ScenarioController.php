@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Choix;
+use App\Entity\Niveau;
+
 use App\Entity\Scenario;
 use App\Form\ScenarioType;
+use App\Repository\NiveauRepository;
 use App\Repository\ScenarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\Choix;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 #[Route('/scenario')]

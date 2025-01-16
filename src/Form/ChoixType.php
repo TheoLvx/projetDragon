@@ -21,7 +21,7 @@ class ChoixType extends AbstractType
             ->add('attaque')
             ->add('LeScenario', EntityType::class, [
                 'class' => Scenario::class,
-                'choix_label' => 'id',
+                'choice_label' => 'nom',
             ])
         ;
     }

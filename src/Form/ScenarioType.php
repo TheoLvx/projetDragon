@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Scenario;
+use App\Entity\Niveau;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,8 +16,11 @@ class ScenarioType extends AbstractType
         $builder
             ->add('nom')
             ->add('contexte')
-            ->add('niveau')
             ->add('image')
+            ->add('LeNiveau', EntityType::class, [
+                'class' => Niveau::class,
+                'choice_label' => 'nom',
+            ])
         ;
     }
 
