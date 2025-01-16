@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Validator\StatCumulative;
 use App\Repository\PersoRepository;
+use Symfony\Component\Validator\Constraints as Assert; // Import correct des contraintes Symfony
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersoRepository::class)]
@@ -22,10 +23,13 @@ class Perso
     private int $hp = 10; // Initialisation par défaut à 10
 
     #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'L\'attaque ne peut pas être négative.')]
     private ?int $attaque = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'L\'intelligence ne peut pas être négative.')]
     private ?int $intelligence = null;
+
 
     // Getters et setters...
 
