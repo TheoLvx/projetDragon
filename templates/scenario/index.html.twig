@@ -38,7 +38,7 @@
                     <a href="{{ path('app_scenario_edit', {'id': scenario.id}) }}" class="btn btn-sm btn-warning">
                         <i class="bi bi-pencil-square"></i> Modifier
                     </a>
-                    <a href="{{ path('app_choix_scenario', {'nom': scenario.nom}) }}" class="btn btn-sm btn-success">
+                    <a href="{{ path('app_choix_scenario', {'id': scenario.id}) }}" class="btn btn-sm btn-success">
                         <i class="bi bi-list"></i> Accéder aux choix
                     </a>
                     <a href="{{ path('app_choix_new', {'idScenario': scenario.id}) }}" class="btn btn-sm btn-secondary">
