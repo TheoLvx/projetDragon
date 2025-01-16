@@ -40,7 +40,7 @@ class AppFixtures extends Fixture
         $choix1 = new Choix();
         $choix1->setTexte('EXPLOSION');
         $choix1->setExplications("CA A EXPLOSé");
-        $choix1->setLeScenario($scenario1);
+        $choix1->setLeScenario($scenario2);
         $choix1->setHp(2);
         $choix1->setIntelligence(1);
         $choix1->setAttaque(1);
@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
         $choix2 = new Choix();
         $choix2->setTexte('Sorcier');
         $choix2->setExplications("Il te donne beaucoup d'hp");
-        $choix2->setLeScenario($scenario1);
+        $choix2->setLeScenario($scenario2);
         $choix2->setHp(1);
         $choix2->setIntelligence(2);
         $choix2->setAttaque(2);
