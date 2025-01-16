@@ -30,6 +30,9 @@ class Niveau
     #[ORM\OneToMany(targetEntity: Scenario::class, mappedBy: 'LeNiveau')]
     private Collection $scenarios;
 
+    #[ORM\Column]
+    private ?int $numero = null;
+
     public function __construct()
     {
         $this->scenarios = new ArrayCollection();
@@ -109,5 +112,17 @@ class Niveau
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getNumero(): ?int
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(int $numero): static
+    {
+        $this->numero = $numero;
+
+        return $this;
     }
 }
