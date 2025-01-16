@@ -33,8 +33,7 @@ final class ChoixController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($choix);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_choix_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_choix_scenario', ['id'=>$choix->getLeScenario()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('choix/new.html.twig', [
