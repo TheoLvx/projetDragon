@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Scenario;
 use App\Entity\Choix;
@@ -11,10 +13,16 @@ use App\Entity\User;
 
 class AppFixtures extends Fixture
 {
+
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
 
         $scenario1 = new Scenario();
         $scenario1->setNom('Scenario 1');
@@ -52,11 +60,14 @@ class AppFixtures extends Fixture
         $manager->persist($perso);
 
         $user = new User();
-        $user->setUsername('admin');
-        $user->setPassword('$2y$13$1Q6');
+        $user->setUsername('admin2');
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'admin123' 
+        );
+        $user->setPassword($hashedPassword);
         $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
-
 
         $manager->flush();
     }

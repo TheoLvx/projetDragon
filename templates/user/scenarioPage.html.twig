@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scénarios de {{ user.username }}{% endblock %}
+
+{% block body %}
+    <h1>Scénarios de {{ user.username }}</h1>
+
+    {% if scenarios is empty %}
+        <p>Aucun scénario trouvé.</p>
+    {% else %}
+        <ul>
+            {% for scenario in scenarios %}
+                <li>
+                    <strong>{{ scenario.nom }}</strong><br>
+                    Contexte : {{ scenario.contexte }}<br>
+                    Niveau : {{ scenario.niveau }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{{ path('app_user_index') }}">Retour à la liste des utilisateurs</a>
+{% endblock %}

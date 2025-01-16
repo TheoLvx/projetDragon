@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scenario{% endblock %}
+
+{% block body %}
+    <h1>Scenario</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ scenario.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ scenario.nom }}</td>
+            </tr>
+            <tr>
+                <th>Contexte</th>
+                <td>{{ scenario.contexte }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ scenario.niveau }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ scenario.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_scenario_index') }}">back to list</a>
+
+    <a href="{{ path('app_scenario_edit', {'id': scenario.id}) }}">edit</a>
+
+    {{ include('scenario/_delete_form.html.twig') }}
+{% endblock %}

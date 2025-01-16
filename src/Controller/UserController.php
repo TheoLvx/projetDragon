@@ -22,6 +22,26 @@ final class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/show', name: 'app_user_show')]
+    public function show(UserRepository $userRepository): Response
+    {
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/user/scenarios', name: 'app_user_scenarios')]
+    public function showScenarios(int $userId, ScenarioRepository $scenarioRepository): Response
+    {
+    
+        $scenarios = $scenarioRepository->findBy(['user' => $userId]);
+
+        return $this->render('user/scenarios.html.twig', [
+            'scenarios' => $scenarios,
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,13 +62,13 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
+    // #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    // public function show(User $user): Response
+    // {
+    //     return $this->render('user/show.html.twig', [
+    //         'user' => $user,
+    //     ]);
+    // }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
