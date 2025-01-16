@@ -27,13 +27,13 @@ class AppFixtures extends Fixture
         $scenario1 = new Scenario();
         $scenario1->setNom('Passer par la forêt');
         $scenario1->setContexte('Provoquer dame nature');
-        $scenario1->setNiveau(1);
+        $scenario1->setLeNiveau(1);
         $scenario1->setImage("vide");
 
         $scenario2 = new Scenario();
         $scenario2->setNom('Passer par le village');
         $scenario2->setContexte('Rencontrer ses habitants...');
-        $scenario2->setNiveau(1);
+        $scenario2->setLeNiveau(1);
         $scenario2->setImage("vide");
         
 
