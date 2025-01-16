@@ -21,8 +21,6 @@ class Scenario
     #[ORM\Column(length: 255)]
     private ?string $contexte = null;
 
-    #[ORM\Column]
-    private ?int $niveau = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
@@ -32,6 +30,10 @@ class Scenario
      */
     #[ORM\OneToMany(targetEntity: Choix::class, mappedBy: 'LeScenario')]
     private Collection $LesChoix;
+
+    #[ORM\ManyToOne(inversedBy: 'scenarios')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Niveau $LeNiveau = null;
 
     public function __construct()
     {
@@ -68,17 +70,7 @@ class Scenario
         return $this;
     }
 
-    public function getNiveau(): ?int
-    {
-        return $this->niveau;
-    }
 
-    public function setNiveau(int $niveau): static
-    {
-        $this->niveau = $niveau;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
@@ -132,6 +124,18 @@ class Scenario
 
         return $this;
 
+    }
+
+    public function getLeNiveau(): ?Niveau
+    {
+        return $this->LeNiveau;
+    }
+
+    public function setLeNiveau(?Niveau $LeNiveau): static
+    {
+        $this->LeNiveau = $LeNiveau;
+
+        return $this;
     }
 
 
