@@ -25,6 +25,30 @@
             margin-bottom: 20px;
         }
 
+        .perso-details {
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .perso-details h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .perso-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .perso-details li {
+            margin: 5px 0;
+        }
+
         .scenarios-list {
             text-align: left;
             margin-top: 20px;
@@ -81,6 +105,19 @@
     <div class="container">
         <h1 class="title">Bienvenue au niveau {{ niveau }}</h1>
 
+        <!-- Détails du personnage -->
+        <div class="perso-details">
+            <h2>Détails du personnage</h2>
+            <ul>
+                <li><strong>ID :</strong> {{ perso.id }}</li>
+                <li><strong>Nom :</strong> {{ perso.username }}</li>
+                <li><strong>HP :</strong> {{ perso.hp }}</li>
+                <li><strong>Attaque :</strong> {{ perso.attaque }}</li>
+                <li><strong>Intelligence :</strong> {{ perso.intelligence }}</li>
+            </ul>
+        </div>
+
+        <!-- Liste des scénarios -->
         {% if scenarios is not empty %}
             <div class="scenarios-list">
                 <ul>
@@ -97,6 +134,5 @@
         {% else %}
             <p class="no-scenario">PLUS RIEN A FAIRE C'EST DOMMAGE</p>
         {% endif %}
-
     </div>
 {% endblock %}
