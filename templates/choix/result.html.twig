@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat pour {{ scenario.nom }}{% endblock %}
+
+{% block body %}
+    <style>
+        /* Style général */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #34495e;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #3498db;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        .result-text {
+            font-size: 1.4rem;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            color: #2c3e50;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+
+    <div class="container">
+        <h1>KESETILPASSE {{ scenario.nom }}</h1>
+
+        <p>Contexte : {{ scenario.contexte }}</p>
+        <p>Niveau : {{ scenario.niveau }}</p>
+
+        <h2>RESULTAT :</h2>
+        <div class="result-text">
+            <p>{{ choix.texte }}</p>
+        </div>
+
+        <a href="{{ path('app_scenario_index') }}" class="back-button">Scénario suivant :D</a>
+    </div>
+{% endblock %}

@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Choix;
+
 
 #[Route('/scenario')]
 final class ScenarioController extends AbstractController
@@ -32,6 +34,28 @@ final class ScenarioController extends AbstractController
             'scenarios' => $scenarios,
         ]);
     }
+
+    #[Route('/{id}/result', name: 'app_choix_result', methods: ['GET'])]
+    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager): Response
+    {
+        $choix = $entityManager->getRepository(Choix::class)->findBy(['LeScenario' => $scenario]);
+
+        if (empty($choix)) {
+            $this->addFlash('warning', 'Aucun choix disponible pour ce scénario.');
+            return $this->redirectToRoute('app_scenario_show', ['id' => $scenario->getId()]);
+        }
+
+        $randomchoix = $choix[array_rand($choix)];
+
+        return $this->render('choix/result.html.twig', [
+            'scenario' => $scenario,
+            'scenario_id' => $scenario->getId(),
+            'choix' => $randomchoix,
+        ]);
+        
+    }
+
+
 
 
     #[Route('/new', name: 'app_scenario_new', methods: ['GET', 'POST'])]
