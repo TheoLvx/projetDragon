@@ -40,4 +40,15 @@ class ScenarioRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findScenariosByLevel(int $niveau): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.niveau = :niveau')
+            ->setParameter('niveau', $niveau)
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

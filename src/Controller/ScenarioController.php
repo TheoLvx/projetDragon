@@ -22,6 +22,18 @@ final class ScenarioController extends AbstractController
         ]);
     }
 
+    #[Route('/niveau/{niveau}', name: 'app_scenario_niveau', methods: ['GET'])]
+    public function byLevel(ScenarioRepository $scenarioRepository, int $niveau): Response
+    {
+        $scenarios = $scenarioRepository->findBy(['niveau' => $niveau]);
+    
+        return $this->render('scenario/niveau.html.twig', [
+            'niveau' => $niveau,
+            'scenarios' => $scenarios,
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_scenario_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
