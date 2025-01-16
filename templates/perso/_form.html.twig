@@ -1,29 +1,13 @@
-{{ form_start(form, { 'attr': { 'class': 'form-horizontal' } }) }}
-    <div class="mb-3">
-        {{ form_label(form.username, 'Nom d\'utilisateur', { 'label_attr': { 'class': 'form-label' } }) }}
-        {{ form_widget(form.username, { 'attr': { 'class': 'form-control' } }) }}
-        {{ form_errors(form.username) }}
-    </div>
+{{ form_start(form) }}
 
-    <div class="mb-3">
-        {{ form_label(form.hp, 'Points de vie (HP)', { 'label_attr': { 'class': 'form-label' } }) }}
-        {{ form_widget(form.hp, { 'attr': { 'class': 'form-control' } }) }}
-        {{ form_errors(form.hp) }}
-    </div>
+    {# Afficher les erreurs globales #}  
 
-    <div class="mb-3">
-        {{ form_label(form.attaque, 'Attaque', { 'label_attr': { 'class': 'form-label' } }) }}
-        {{ form_widget(form.attaque, { 'attr': { 'class': 'form-control' } }) }}
-        {{ form_errors(form.attaque) }}
-    </div>
+    {# Rendu des champs du formulaire #}
+    {{ form_widget(form) }}
 
-    <div class="mb-3">
-        {{ form_label(form.intelligence, 'Intelligence', { 'label_attr': { 'class': 'form-label' } }) }}
-        {{ form_widget(form.intelligence, { 'attr': { 'class': 'form-control' } }) }}
-        {{ form_errors(form.intelligence) }}
-    </div>
-
+    {# Bouton de soumission #}
     <button type="submit" class="btn btn-primary">
         {{ button_label|default('Sauvegarder') }}
     </button>
+
 {{ form_end(form) }}

@@ -30,8 +30,6 @@ class Perso
     // Getters et setters...
 
 
-    // Getters et setters...
-
     public function getId(): ?int
     {
         return $this->id;

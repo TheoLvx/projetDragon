@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Perso;
+use Symfony\Component\Form\FormError;
 use App\Form\PersoType;
 use App\Repository\PersoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,19 +29,20 @@ final class PersoController extends AbstractController
         $perso = new Perso();
         $form = $this->createForm(PersoType::class, $perso);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($perso);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_perso_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('perso/new.html.twig', [
             'perso' => $perso,
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_perso_show', methods: ['GET'])]
     public function show(Perso $perso): Response
@@ -55,18 +57,19 @@ final class PersoController extends AbstractController
     {
         $form = $this->createForm(PersoType::class, $perso);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_perso_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('perso/edit.html.twig', [
             'perso' => $perso,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'app_perso_delete', methods: ['POST'])]
     public function delete(Request $request, Perso $perso, EntityManagerInterface $entityManager): Response
