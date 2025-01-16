@@ -1,38 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Perso{% endblock %}
+{% block title %}Détails du personnage{% endblock %}
 
 {% block body %}
-    <h1>Perso</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Détails du personnage</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ perso.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ perso.username }}</td>
-            </tr>
-            <tr>
-                <th>Hp</th>
-                <td>{{ perso.hp }}</td>
-            </tr>
-            <tr>
-                <th>Attaque</th>
-                <td>{{ perso.attaque }}</td>
-            </tr>
-            <tr>
-                <th>Intelligence</th>
-                <td>{{ perso.intelligence }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">ID</th>
+                        <td>{{ perso.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nom d'utilisateur</th>
+                        <td>{{ perso.username }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HP</th>
+                        <td>{{ perso.hp }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Attaque</th>
+                        <td>{{ perso.attaque }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Intelligence</th>
+                        <td>{{ perso.intelligence }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <a href="{{ path('app_perso_index') }}">back to list</a>
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{{ path('app_perso_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
 
-    <a href="{{ path('app_perso_edit', {'id': perso.id}) }}">edit</a>
+        <a href="{{ path('app_perso_edit', {'id': perso.id}) }}" class="btn btn-warning">
+            <i class="bi bi-pencil-square"></i> Modifier
+        </a>
 
-    {{ include('perso/_delete_form.html.twig') }}
+        {{ include('perso/_delete_form.html.twig', { 'class': 'btn btn-danger' }) }}
+    </div>
+</div>
 {% endblock %}

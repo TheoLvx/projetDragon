@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Perso{% endblock %}
+{% block title %}Modifier le personnage{% endblock %}
 
 {% block body %}
-    <h1>Edit Perso</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Modifier le personnage</h1>
 
-    {{ include('perso/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {{ include('perso/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        </div>
+    </div>
 
-    <a href="{{ path('app_perso_index') }}">back to list</a>
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{{ path('app_perso_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
 
-    {{ include('perso/_delete_form.html.twig') }}
+        {{ include('perso/_delete_form.html.twig', { 'class': 'btn btn-danger' }) }}
+    </div>
+</div>
 {% endblock %}

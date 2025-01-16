@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Perso{% endblock %}
+{% block title %}Créer un nouveau personnage{% endblock %}
 
 {% block body %}
-    <h1>Create new Perso</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Créer un nouveau personnage</h1>
 
-    {{ include('perso/_form.html.twig') }}
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {{ include('perso/_form.html.twig') }}
+        </div>
+    </div>
 
-    <a href="{{ path('app_perso_index') }}">back to list</a>
+    <div class="mt-4 text-end">
+        <a href="{{ path('app_perso_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+</div>
 {% endblock %}

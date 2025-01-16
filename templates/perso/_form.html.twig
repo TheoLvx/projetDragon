@@ -1,4 +1,29 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, { 'attr': { 'class': 'form-horizontal' } }) }}
+    <div class="mb-3">
+        {{ form_label(form.username, 'Nom d\'utilisateur', { 'label_attr': { 'class': 'form-label' } }) }}
+        {{ form_widget(form.username, { 'attr': { 'class': 'form-control' } }) }}
+        {{ form_errors(form.username) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.hp, 'Points de vie (HP)', { 'label_attr': { 'class': 'form-label' } }) }}
+        {{ form_widget(form.hp, { 'attr': { 'class': 'form-control' } }) }}
+        {{ form_errors(form.hp) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.attaque, 'Attaque', { 'label_attr': { 'class': 'form-label' } }) }}
+        {{ form_widget(form.attaque, { 'attr': { 'class': 'form-control' } }) }}
+        {{ form_errors(form.attaque) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.intelligence, 'Intelligence', { 'label_attr': { 'class': 'form-label' } }) }}
+        {{ form_widget(form.intelligence, { 'attr': { 'class': 'form-control' } }) }}
+        {{ form_errors(form.intelligence) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        {{ button_label|default('Sauvegarder') }}
+    </button>
 {{ form_end(form) }}
