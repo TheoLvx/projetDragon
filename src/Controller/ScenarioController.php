@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 #[Route('/scenario')]
@@ -29,17 +30,35 @@ final class ScenarioController extends AbstractController
     }
 
     #[Route('/niveau/{niveau}', name: 'app_scenario_niveau', methods: ['GET'])]
-    public function byLevel(ScenarioRepository $scenarioRepository, Niveau $niveau, NiveauRepository $niveauRepository, PersoRepository $persoRepository
-    ): Response {
-        $scenarios = $scenarioRepository->findBy(['LeNiveau' => $niveau]);
-        $perso = $persoRepository->findOneBy([]);
+public function byLevel(
+    ScenarioRepository $scenarioRepository,
+    Niveau $niveau,
+    PersoRepository $persoRepository,
+    SessionInterface $session
+): Response {
+    // Récupérer l'ID du personnage depuis la session
+    $persoId = $session->get('perso_id');
 
-        return $this->render('scenario/niveau.html.twig', [
-            'niveau' => $niveau,
-            'scenarios' => $scenarios,
-            'perso' => $perso,
-        ]);
+    if (!$persoId) {
+        throw $this->createNotFoundException('Aucun personnage trouvé dans la session.');
     }
+
+    // Charger l'objet Perso à partir de l'ID
+    $perso = $persoRepository->find($persoId);
+
+    if (!$perso) {
+        throw $this->createNotFoundException('Personnage non trouvé en base de données.');
+    }
+
+    // Récupérer les scénarios associés au niveau
+    $scenarios = $scenarioRepository->findBy(['LeNiveau' => $niveau]);
+
+    return $this->render('scenario/niveau.html.twig', [
+        'niveau' => $niveau,
+        'scenarios' => $scenarios,
+        'perso' => $perso,
+    ]);
+}
 
 
     #[Route('/{id}/result', name: 'app_choix_result', methods: ['GET'])]

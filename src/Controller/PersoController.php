@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Perso;
 use Symfony\Component\Form\FormError;
 use App\Form\PersoType;
@@ -25,30 +26,32 @@ final class PersoController extends AbstractController
 
   
     #[Route('/new', name: 'app_perso_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager): Response
-{
-    $perso = new Perso();
-    $perso->setHp(10); // Initialisation de `hp` à 10
-
-    $form = $this->createForm(PersoType::class, $perso);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager->persist($perso);
-        $entityManager->flush();
-
-        // Redirection vers la route app_scenario_niveau avec le niveau et l'ID du personnage
-        return $this->redirectToRoute('app_scenario_niveau', [
-            'niveau' => 1, // Niveau initial
-            'id' => $perso->getId(), // ID du personnage créé
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    {
+        $perso = new Perso();
+        $perso->setHp(10); // Initialisation de `hp` à 10
+    
+        $form = $this->createForm(PersoType::class, $perso);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($perso);
+            $entityManager->flush();
+    
+            // Stocker l'ID du personnage dans la session
+            $session->set('perso_id', $perso->getId());
+    
+            // Redirection vers la route app_scenario_niveau avec uniquement le niveau
+            return $this->redirectToRoute('app_scenario_niveau', [
+                'niveau' => 1, // Niveau initial
+            ]);
+        }
+    
+        return $this->render('perso/new.html.twig', [
+            'perso' => $perso,
+            'form' => $form,
         ]);
     }
-
-    return $this->render('perso/new.html.twig', [
-        'perso' => $perso,
-        'form' => $form,
-    ]);
-}
       
 
 
