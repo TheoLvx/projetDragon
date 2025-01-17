@@ -29,12 +29,11 @@ final class ScenarioController extends AbstractController
     }
 
     #[Route('/niveau/{niveau}', name: 'app_scenario_niveau', methods: ['GET'])]
-    public function byLevel(ScenarioRepository $scenarioRepository, Niveau $niveau, PersoRepository $persoRepository): Response
-    {
+    public function byLevel(ScenarioRepository $scenarioRepository, Niveau $niveau, NiveauRepository $niveauRepository, PersoRepository $persoRepository
+    ): Response {
         $scenarios = $scenarioRepository->findBy(['LeNiveau' => $niveau]);
-        $perso = $persoRepository->findOneBy([]); 
+        $perso = $persoRepository->findOneBy([]);
 
-    
         return $this->render('scenario/niveau.html.twig', [
             'niveau' => $niveau,
             'scenarios' => $scenarios,
@@ -42,8 +41,9 @@ final class ScenarioController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}/result', name: 'app_choix_result', methods: ['GET'])]
-    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager): Response
+    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager, NiveauRepository $niveauRepository): Response
     {
         $choix = $entityManager->getRepository(Choix::class)->findBy(['LeScenario' => $scenario]);
 
@@ -52,15 +52,18 @@ final class ScenarioController extends AbstractController
             return $this->redirectToRoute('app_scenario_show', ['id' => $scenario->getId()]);
         }
 
+        $niveau = $scenario->getLeNiveau();
+
+        $nextLevel = $niveauRepository->findOneBy(['numero' => $niveau->getNumero() + 1]);
         $randomchoix = $choix[array_rand($choix)];
 
         return $this->render('choix/result.html.twig', [
             'scenario' => $scenario,
-            'scenario_id' => $scenario->getId(),
             'choix' => $randomchoix,
+            'nextLevel' => $nextLevel,
         ]);
-        
     }
+
 
 
     #[Route('/new', name: 'app_scenario_new', methods: ['GET', 'POST'])]

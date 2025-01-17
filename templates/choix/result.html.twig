@@ -80,6 +80,13 @@
             <p>{{ choix.texte }}</p>
         </div>
 
-        <a href="{{ path('app_scenario_index') }}" class="back-button">Scénario suivant :D</a>
+        {% if nextLevel %}
+            <a href="{{ path('app_scenario_niveau', {'niveau': nextLevel.numero}) }}" class="back-button">
+                Passer au niveau suivant : {{ nextLevel.nom }}
+            </a>
+        {% else %}
+            <p>Félicitations, vous avez terminé tous les niveaux !</p>
+        {% endif %}
+
     </div>
 {% endblock %}
