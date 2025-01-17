@@ -23,6 +23,7 @@ final class ChoixController extends AbstractController
         ]);
     }
 
+
     #[Route('/new', name: 'app_choix_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

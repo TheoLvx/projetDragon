@@ -43,26 +43,34 @@ final class ScenarioController extends AbstractController
 
 
     #[Route('/{id}/result', name: 'app_choix_result', methods: ['GET'])]
-    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager, NiveauRepository $niveauRepository): Response
+    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager, NiveauRepository $niveauRepository, PersoRepository $persoRepository): Response
     {
         $choix = $entityManager->getRepository(Choix::class)->findBy(['LeScenario' => $scenario]);
 
         if (empty($choix)) {
-            $this->addFlash('warning', 'Aucun choix disponible pour ce scénario.');
+            $this->addFlash('warning', 'Aucun choix dispopour ce scénario.');
             return $this->redirectToRoute('app_scenario_show', ['id' => $scenario->getId()]);
         }
 
         $niveau = $scenario->getLeNiveau();
-
         $nextLevel = $niveauRepository->findOneBy(['numero' => $niveau->getNumero() + 1]);
         $randomchoix = $choix[array_rand($choix)];
+
+        $perso = $persoRepository->findOneBy([]);
+        $isGameOver = false;
+
+        if ($perso && $perso->getHp() <= 0) {
+            $isGameOver = true;
+        }
 
         return $this->render('choix/result.html.twig', [
             'scenario' => $scenario,
             'choix' => $randomchoix,
             'nextLevel' => $nextLevel,
+            'isGameOver' => $isGameOver,
         ]);
     }
+
 
 
 

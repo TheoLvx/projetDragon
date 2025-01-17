@@ -67,6 +67,12 @@
         .back-button:hover {
             background-color: #2980b9;
         }
+
+        .game-over-message {
+            font-size: 1.4rem;
+            color: #e74c3c;
+            margin-top: 30px;
+        }
     </style>
 
     <div class="container">
@@ -80,13 +86,14 @@
             <p>{{ choix.texte }}</p>
         </div>
 
-        {% if nextLevel %}
+        {% if isGameOver %}
+            <p class="game-over-message">Fin du jeu : Votre personnage est mort !</p>
+        {% elseif nextLevel %}
             <a href="{{ path('app_scenario_niveau', {'niveau': nextLevel.numero}) }}" class="back-button">
                 Passer au niveau suivant : {{ nextLevel.nom }}
             </a>
         {% else %}
             <p>Félicitations, vous avez terminé tous les niveaux !</p>
         {% endif %}
-
     </div>
 {% endblock %}
