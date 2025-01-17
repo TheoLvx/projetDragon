@@ -60,42 +60,47 @@ public function byLevel(
     ]);
 }
 
-
     #[Route('/{id}/result', name: 'app_choix_result', methods: ['GET'])]
-    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager, NiveauRepository $niveauRepository, PersoRepository $persoRepository): Response
+    public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager, NiveauRepository $niveauRepository, PersoRepository $persoRepository, SessionInterface $session): Response
     {
+        $persoId = $session->get('perso_id');
+
+        if (!$persoId) {
+            throw $this->createNotFoundException('Aucun personnage trouvé dans la session.');
+        }
+
+        $perso = $persoRepository->find($persoId);
+
+        if (!$perso) {
+            throw $this->createNotFoundException('Personnage non trouvé en base de données.');
+        }
+
         $choix = $entityManager->getRepository(Choix::class)->findBy(['LeScenario' => $scenario]);
-    
+
         if (empty($choix)) {
             $this->addFlash('warning', 'Aucun choix disponible pour ce scénario.');
             return $this->redirectToRoute('app_scenario_show', ['id' => $scenario->getId()]);
         }
-    
+
         $niveau = $scenario->getLeNiveau();
         $nextLevel = $niveauRepository->findOneBy(['numero' => $niveau->getNumero() + 1]);
         $randomchoix = $choix[array_rand($choix)];
-        $perso = $persoRepository->findOneBy([]);
+        $newHp = $perso->getHp() - $randomchoix->getAttaque();
+        $perso->setHp($newHp);
+
         $isGameOver = false;
-    
-        if ($perso) {
-            $newHp = $perso->getHp() - $randomchoix->getAttaque();
-            $perso->setHp($newHp);
-    
-            if ($newHp > 0) {
-                $newIntelligence = $perso->getIntelligence() + $randomchoix->getIntelligence();
-                $newAttaque = $perso->getAttaque() + $randomchoix->getAttaque();
-    
-                $perso->setIntelligence($newIntelligence);
-                $perso->setAttaque($newAttaque);
-            }
-    
-            if ($newHp <= 0) {
-                $isGameOver = true;
-            }
-    
-            $entityManager->flush();
+        if ($newHp <= 0) {
+            $isGameOver = true;
+        } else {
+            $newIntelligence = $perso->getIntelligence() + $randomchoix->getIntelligence();
+            $newAttaque = $perso->getAttaque() + $randomchoix->getAttaque();
+
+            $perso->setIntelligence($newIntelligence);
+            $perso->setAttaque($newAttaque);
         }
-    
+
+        $entityManager->flush();
+
         return $this->render('choix/result.html.twig', [
             'scenario' => $scenario,
             'choix' => $randomchoix,
@@ -103,6 +108,7 @@ public function byLevel(
             'isGameOver' => $isGameOver,
         ]);
     }
+
     
     #[Route('/new', name: 'app_scenario_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
