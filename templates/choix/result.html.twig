@@ -83,6 +83,7 @@
         <h2>RESULTAT :</h2>
         <div class="result-text">
             <p>{{ choix.texte }}</p>
+            <p>{{ choix.explications }}</p>
             {% if choix.hp|number_format(0, '.', '') > 0 %}
                 <p>Vous avez gagné {{ choix.hp }} hp</p>
             {% else %}
