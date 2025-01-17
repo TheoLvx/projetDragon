@@ -84,10 +84,11 @@ final class ScenarioController extends AbstractController
         $nextLevel = $niveauRepository->findOneBy(['numero' => $niveau->getNumero() + 1]);
         $randomchoix = $choix[array_rand($choix)];
         if ($randomchoix->getHp() < 0) {
-            $newHp = $perso->getHp() + $randomchoix->getHp();
+            $newHp = $perso->getHp() - abs($randomchoix->getHp());
         } else {
-            $newHp = $perso->getHp() - $randomchoix->getHp();
+            $newHp = $perso->getHp() + $randomchoix->getHp();
         }
+        
         $perso->setHp($newHp);
 
         $isGameOver = false;
