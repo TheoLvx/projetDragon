@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Scénarios pour le niveau {{ niveau }}{% endblock %}
+{% block title %}Scénarios pour le niveau {{ niveau.numero }}{% endblock %}
 
 {% block body %}
     <style>
-        /* Style général */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
@@ -95,6 +94,8 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
         }
 
         .btn-action:hover {
@@ -103,7 +104,7 @@
     </style>
 
     <div class="container">
-        <h1 class="title">Bienvenue au niveau {{ niveau }}</h1>
+        <h1 class="title">Bienvenue au niveau {{ niveau.numero }}</h1>
 
         <!-- Détails du personnage -->
         <div class="perso-details">
@@ -115,6 +116,8 @@
                 <li><strong>Intelligence :</strong> {{ perso.intelligence }}</li>
             </ul>
         </div>
+
+       
 
         <!-- Liste des scénarios -->
         {% if scenarios is not empty %}
@@ -132,6 +135,10 @@
             </div>
         {% else %}
             <p class="no-scenario">BRAVO C'EST GAGNE !</p>
+        {% endif %}
+         <!-- Bouton spécifique pour le niveau 5 -->
+        {% if niveau.numero == 5 %}
+            <a href="{{ path('app_perso_index') }}" class="btn-action">Retour à la liste des personnages</a>
         {% endif %}
     </div>
 {% endblock %}
