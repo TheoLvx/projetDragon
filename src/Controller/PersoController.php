@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Perso;
+use App\Entity\Niveau;
+
 use Symfony\Component\Form\FormError;
 use App\Form\PersoType;
 use App\Repository\PersoRepository;
@@ -52,6 +54,16 @@ final class PersoController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    public function leaderboard(PersoRepository $persoRepository): Response
+    {
+        $persos = $persoRepository->findBy([], ['hp' => 'DESC']);
+    
+        return $this->render('leaderboard/index.html.twig', [
+            'persos' => $persos,
+        ]);
+    }
+    
       
 
 

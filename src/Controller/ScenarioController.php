@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Choix;
 use App\Entity\Niveau;
-
 use App\Entity\Scenario;
 use App\Form\ScenarioType;
 use App\Repository\PersoRepository;
@@ -34,34 +33,30 @@ final class ScenarioController extends AbstractController
         ScenarioRepository $scenarioRepository,
         PersoRepository $persoRepository,
         NiveauRepository $niveauRepository,
-        string $niveau, // Paramètre brut au lieu d'un objet Niveau
+        string $niveau, 
         SessionInterface $session
     ): Response {
-        // Rechercher l'entité Niveau
         $niveauEntity = $niveauRepository->findOneBy(['numero' => $niveau]);
-    
+
         if (!$niveauEntity) {
             throw $this->createNotFoundException(sprintf('Niveau "%s" non trouvé.', $niveau));
         }
-    
-        // Récupérer l'ID du personnage depuis la session
+
         $persoId = $session->get('perso_id');
         $perso = $persoRepository->find($persoId);
-    
+
         if (!$perso) {
             throw $this->createNotFoundException('Personnage non trouvé en base de données.');
         }
-    
-        // Récupérer les scénarios associés au niveau
+
         $scenarios = $scenarioRepository->findBy(['LeNiveau' => $niveauEntity]);
-    
+
         return $this->render('scenario/niveau.html.twig', [
             'niveau' => $niveauEntity,
             'scenarios' => $scenarios,
             'perso' => $perso,
         ]);
     }
-    
 
     #[Route('/{id}/result', name: 'app_choix_result', methods: ['GET'])]
     public function randomChoix(Scenario $scenario, EntityManagerInterface $entityManager, NiveauRepository $niveauRepository, PersoRepository $persoRepository, SessionInterface $session): Response
