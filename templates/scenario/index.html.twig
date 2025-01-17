@@ -19,7 +19,6 @@
                 <th>Nom</th>
                 <th>Contexte</th>
                 <th>Niveau</th>
-                <th>Image</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,7 +29,6 @@
                 <td>{{ scenario.nom }}</td>
                 <td>{{ scenario.contexte }}</td>
                 <td>{{ scenario.LeNiveau.nom }}</td>
-                <td><img src="{{ scenario.image }}" alt="Image du scénario" class="img-fluid" style="max-width: 100px;"></td>
                 <td>
                     <a href="{{ path('app_scenario_show', {'id': scenario.id}) }}" class="btn btn-sm btn-info text-white">
                         <i class="bi bi-eye"></i> Voir
