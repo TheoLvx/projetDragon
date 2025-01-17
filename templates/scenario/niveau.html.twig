@@ -12,25 +12,31 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 900px;
+            margin: 40px auto;
             padding: 20px;
             text-align: center;
         }
 
         .title {
             font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
         }
 
         .perso-details {
             text-align: left;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             padding: 20px;
-            background-color: #fff;
+            background-color: #ffffff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .perso-details h2 {
@@ -40,30 +46,37 @@
         }
 
         .perso-details ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .perso-details li {
-            margin: 5px 0;
+            margin: 8px 0;
+            font-size: 1rem;
         }
 
         .scenarios-list {
             text-align: left;
-            margin-top: 20px;
         }
 
         .scenario-item {
-            background-color: #fff;
+            background-color: #ffffff;
             border-radius: 8px;
-            margin: 10px 0;
+            margin: 15px 0;
             padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .scenario-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
         }
 
         .scenario-link {
             text-decoration: none;
-            color: #333;
+            color: #34495e;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -75,7 +88,7 @@
 
         .scenario-context {
             font-style: italic;
-            color: #666;
+            color: #7f8c8d;
         }
 
         .no-scenario {
@@ -86,10 +99,10 @@
         }
 
         .btn-action {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 1rem;
             background-color: #3498db;
-            color: #fff;
+            color: #ffffff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -100,6 +113,7 @@
 
         .btn-action:hover {
             background-color: #2980b9;
+            transform: scale(1.05);
         }
     </style>
 

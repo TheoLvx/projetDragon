@@ -6,126 +6,139 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f6f8;
+            background-color: #f8fafc;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #2c3e50;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
         h1 {
-            font-size: 2.8rem;
-            color: #2c3e50;
-            margin-bottom: 30px;
+            font-size: 2.4rem;
+            color: #34495e;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
 
         p {
-            font-size: 1.2rem;
-            color: #34495e;
-            line-height: 1.8;
-            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         h2 {
-            font-size: 2.2rem;
-            color: #3498db;
-            margin-top: 40px;
+            font-size: 1.8rem;
+            color: #2980b9;
+            margin: 30px 0 20px;
             text-transform: uppercase;
             font-weight: bold;
         }
 
         .result-text {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             background-color: #ecf0f1;
-            padding: 25px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
+            margin-top: 20px;
             color: #2c3e50;
-            line-height: 1.6;
+            text-align: left;
         }
 
         .result-text p {
-            margin-bottom: 10px;
-        }
-
-        .back-button {
-            display: inline-block;
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            background-color: #3498db;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 40px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .back-button:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        .game-over-message {
-            font-size: 1.5rem;
-            color: #e74c3c;
-            margin-top: 40px;
-            font-weight: bold;
+            margin: 10px 0;
         }
 
         .result-text p span {
             font-weight: bold;
             color: #e74c3c;
         }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1rem;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #e74c3c;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .game-over-message {
+            font-size: 1.4rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 30px;
+        }
     </style>
 
     <div class="container">
-        <h1>Résultat du scénario : {{ scenario.nom }}</h1>
+        <h1>{{ scenario.nom }}</h1>
+        <p>{{ scenario.contexte }}</p>
+        <p>Niveau actuel : <strong>{{ scenario.LeNiveau.nom }}</strong></p>
 
-        <p>Contexte : {{ scenario.contexte }}</p>
-        <p>Niveau : {{ scenario.LeNiveau.nom }}</p>
-
-        <h2>Résultat :</h2>
+        <h2>Vos Gains et Pertes :</h2>
         <div class="result-text">
             <p>{{ choix.texte }}</p>
             <p>{{ choix.explications }}</p>
 
-            {% if choix.attaque|number_format(0, '.', '') <= 0 %}
-                <p><span>Vous avez perdu {{ choix.hp }} hp</span></p>
+            {% if choix.hp < 0 %}
+                <p><span>Vous avez perdu {{ choix.hp | abs }} HP</span></p>
             {% else %}
-                <p><span>Vous avez gagné {{ choix.hp }} hp</span></p>
+                <p><span>Vous avez gagné {{ choix.hp }} HP</span></p>
             {% endif %}
 
-            {% if choix.intelligence|number_format(0, '.', '') <= 0 %}
-                <p><span>Vous avez perdu {{ choix.intelligence }} point d'intelligence</span></p>
+            {% if choix.intelligence < 0 %}
+                <p><span>Vous avez perdu {{ choix.intelligence | abs }} points d'intelligence</span></p>
             {% else %}
-                <p><span>Vous avez gagné {{ choix.intelligence }} point d'intelligence</span></p>
+                <p><span>Vous avez gagné {{ choix.intelligence }} points d'intelligence</span></p>
             {% endif %}
 
-            {% if choix.attaque|number_format(0, '.', '') <= 0 %}
-                <p><span>Vous avez perdu {{ choix.attaque }} point d'attaque</span></p>
+            {% if choix.attaque < 0 %}
+                <p><span>Vous avez perdu {{ choix.attaque | abs }} points d'attaque</span></p>
             {% else %}
-                <p><span>Vous avez gagné {{ choix.attaque }} point d'attaque</span></p>
+                <p><span>Vous avez gagné {{ choix.attaque }} points d'attaque</span></p>
             {% endif %}
         </div>
 
         {% if isGameOver %}
             <p class="game-over-message">Fin du jeu : Votre personnage est mort !</p>
+            <a href="{{ path('app_home') }}" class="btn btn-secondary">Retour à l'accueil</a>
         {% elseif nextLevel %}
-            <a href="{{ path('app_scenario_niveau', {'niveau': nextLevel.numero}) }}" class="back-button">
+            <a href="{{ path('app_scenario_niveau', {'niveau': nextLevel.numero}) }}" class="btn btn-primary">
                 Passer au niveau suivant : {{ nextLevel.nom }}
             </a>
         {% else %}
             <p>Félicitations, vous avez terminé tous les niveaux !</p>
+            <a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
         {% endif %}
     </div>
 {% endblock %}
