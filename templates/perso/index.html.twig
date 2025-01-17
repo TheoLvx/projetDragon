@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des personnages{% endblock %}
+{% block title %}Leaderboard{% endblock %}
 
 {% block body %}
 <div class="container my-5">
-    <h1 class="mb-4">Liste des personnages</h1>
+    <h1 class="mb-4">Leaderboard</h1>
 
     <div class="mb-3 text-end">
         <a href="{{ path('app_perso_new') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Créer un nouveau personnage
+            <i class="bi bi-plus-circle"></i> Jouez !
         </a>
     </div>
 
@@ -34,9 +34,6 @@
                 <td>
                     <a href="{{ path('app_perso_show', {'id': perso.id}) }}" class="btn btn-sm btn-info text-white">
                         <i class="bi bi-eye"></i> Voir
-                    </a>
-                    <a href="{{ path('app_perso_edit', {'id': perso.id}) }}" class="btn btn-sm btn-warning">
-                        <i class="bi bi-pencil-square"></i> Modifier
                     </a>
                 </td>
             </tr>

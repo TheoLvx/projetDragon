@@ -6,9 +6,10 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
+            background-color: #f4f6f8;
             margin: 0;
             padding: 0;
+            color: #333;
         }
 
         .container {
@@ -19,40 +20,46 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #2c3e50;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
         }
 
         p {
             font-size: 1.2rem;
             color: #34495e;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.8;
+            margin-bottom: 25px;
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: #3498db;
-            margin-top: 30px;
+            margin-top: 40px;
             text-transform: uppercase;
+            font-weight: bold;
         }
 
         .result-text {
             font-size: 1.4rem;
             background-color: #ecf0f1;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
             color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .result-text p {
+            margin-bottom: 10px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 1.1rem;
             background-color: #3498db;
             color: #fff;
@@ -60,38 +67,55 @@
             border-radius: 5px;
             margin-top: 40px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .back-button:hover {
             background-color: #2980b9;
+            transform: translateY(-2px);
         }
 
         .game-over-message {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #e74c3c;
-            margin-top: 30px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        .result-text p span {
+            font-weight: bold;
+            color: #e74c3c;
         }
     </style>
 
     <div class="container">
-        <h1>KESETILPASSE {{ scenario.nom }}</h1>
+        <h1>Résultat du scénario : {{ scenario.nom }}</h1>
 
         <p>Contexte : {{ scenario.contexte }}</p>
         <p>Niveau : {{ scenario.LeNiveau.nom }}</p>
 
-        <h2>RESULTAT :</h2>
+        <h2>Résultat :</h2>
         <div class="result-text">
             <p>{{ choix.texte }}</p>
-            {% if choix.hp|number_format(0, '.', '') > 0 %}
-                <p>Vous avez gagné {{ choix.hp }} hp</p>
+            <p>{{ choix.explications }}</p>
+
+            {% if choix.attaque|number_format(0, '.', '') > 0 %}
+                <p><span>Vous avez perdu {{ choix.hp }} hp</span></p>
             {% else %}
-                <p>Vous avez perdu {{ choix.hp }} hp</p>
+                <p><span>Vous avez gagné {{ choix.hp }} hp</span></p>
             {% endif %}
 
+            {% if choix.intelligence|number_format(0, '.', '') > 0 %}
+                <p><span>Vous avez perdu {{ choix.intelligence }} point d'intelligence</span></p>
+            {% else %}
+                <p><span>Vous avez gagné {{ choix.intelligence }} point d'intelligence</span></p>
+            {% endif %}
 
-            <p>Vous avez gagné {{ choix.intelligence }} point d'intelligence</p>
-            <p>Vous avez perdu {{ choix.attaque }} point d'attaque</p>
+            {% if choix.attaque|number_format(0, '.', '') > 0 %}
+                <p><span>Vous avez perdu {{ choix.attaque }} point d'attaque</span></p>
+            {% else %}
+                <p><span>Vous avez gagné {{ choix.attaque }} point d'attaque</span></p>
+            {% endif %}
         </div>
 
         {% if isGameOver %}
