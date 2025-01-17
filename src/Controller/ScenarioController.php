@@ -48,7 +48,7 @@ final class ScenarioController extends AbstractController
         $choix = $entityManager->getRepository(Choix::class)->findBy(['LeScenario' => $scenario]);
 
         if (empty($choix)) {
-            $this->addFlash('warning', 'Aucun choix dispopour ce scénario.');
+            $this->addFlash('warning', 'Aucun choix disponible pour ce scénario.');
             return $this->redirectToRoute('app_scenario_show', ['id' => $scenario->getId()]);
         }
 
@@ -59,8 +59,13 @@ final class ScenarioController extends AbstractController
         $perso = $persoRepository->findOneBy([]);
         $isGameOver = false;
 
-        if ($perso && $perso->getHp() <= 0) {
-            $isGameOver = true;
+        if ($perso) {
+            $newHp = $perso->getHp() - $randomchoix->getAttaque();
+            $perso->setHp($newHp);
+            $entityManager->flush(); 
+            if ($newHp <= 0) {
+                $isGameOver = true;
+            }
         }
 
         return $this->render('choix/result.html.twig', [
@@ -70,6 +75,7 @@ final class ScenarioController extends AbstractController
             'isGameOver' => $isGameOver,
         ]);
     }
+
 
 
 
