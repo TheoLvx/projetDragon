@@ -99,19 +99,19 @@
             <p>{{ choix.texte }}</p>
             <p>{{ choix.explications }}</p>
 
-            {% if choix.attaque|number_format(0, '.', '') > 0 %}
+            {% if choix.attaque|number_format(0, '.', '') <= 0 %}
                 <p><span>Vous avez perdu {{ choix.hp }} hp</span></p>
             {% else %}
                 <p><span>Vous avez gagné {{ choix.hp }} hp</span></p>
             {% endif %}
 
-            {% if choix.intelligence|number_format(0, '.', '') > 0 %}
+            {% if choix.intelligence|number_format(0, '.', '') <= 0 %}
                 <p><span>Vous avez perdu {{ choix.intelligence }} point d'intelligence</span></p>
             {% else %}
                 <p><span>Vous avez gagné {{ choix.intelligence }} point d'intelligence</span></p>
             {% endif %}
 
-            {% if choix.attaque|number_format(0, '.', '') > 0 %}
+            {% if choix.attaque|number_format(0, '.', '') <= 0 %}
                 <p><span>Vous avez perdu {{ choix.attaque }} point d'attaque</span></p>
             {% else %}
                 <p><span>Vous avez gagné {{ choix.attaque }} point d'attaque</span></p>
