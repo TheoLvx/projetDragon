@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/scenario')]
 final class ScenarioController extends AbstractController
 {
-    #[Route(name: 'app_scenario_index', methods: ['GET'])]
+    #[Route('/admin', name: 'app_scenario_index', methods: ['GET'])]
     public function index(ScenarioRepository $scenarioRepository): Response
     {
         return $this->render('scenario/index.html.twig', [
