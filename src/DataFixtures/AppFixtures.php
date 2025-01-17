@@ -29,12 +29,14 @@ class AppFixtures extends Fixture
         $niveau1->setNom('Introduction');
         $niveau1->setDescription('Les dragons sont des espèces rare qui ne sont pas très amicaux avec les humains... Brûler les villages, c\' ce n\'est pas vraiment quelque chose que les villageois aiment, ducoup faut les chasser aller va chercher l\'oeuf');
         $niveau1->setImage('vide');
+        $niveau1->setNumero(1);
         $manager->persist($niveau1);
 
         $niveau2 = new Niveau();
         $niveau2->setNom('APRES LE PERIPLE');
         $niveau2->setDescription('Je ne sais pas c\'est quoi la suite mais ca fait office de test... que faire ???');
         $niveau2->setImage('vide');
+        $niveau2->setNumero(2);
         $manager->persist($niveau2);
 
 // LISTE SCENARIOS

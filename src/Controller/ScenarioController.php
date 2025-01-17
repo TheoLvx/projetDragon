@@ -7,6 +7,7 @@ use App\Entity\Niveau;
 
 use App\Entity\Scenario;
 use App\Form\ScenarioType;
+use App\Repository\PersoRepository;
 use App\Repository\NiveauRepository;
 use App\Repository\ScenarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,13 +29,16 @@ final class ScenarioController extends AbstractController
     }
 
     #[Route('/niveau/{niveau}', name: 'app_scenario_niveau', methods: ['GET'])]
-    public function byLevel(ScenarioRepository $scenarioRepository, int $niveau): Response
+    public function byLevel(ScenarioRepository $scenarioRepository, Niveau $niveau, PersoRepository $persoRepository): Response
     {
-        $scenarios = $scenarioRepository->findBy(['niveau' => $niveau]);
+        $scenarios = $scenarioRepository->findBy(['LeNiveau' => $niveau]);
+        $perso = $persoRepository->findOneBy([]); 
+
     
         return $this->render('scenario/niveau.html.twig', [
             'niveau' => $niveau,
             'scenarios' => $scenarios,
+            'perso' => $perso,
         ]);
     }
 
@@ -57,8 +61,6 @@ final class ScenarioController extends AbstractController
         ]);
         
     }
-
-
 
 
     #[Route('/new', name: 'app_scenario_new', methods: ['GET', 'POST'])]
@@ -117,4 +119,6 @@ final class ScenarioController extends AbstractController
 
         return $this->redirectToRoute('app_scenario_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }
