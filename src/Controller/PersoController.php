@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/')]
 final class PersoController extends AbstractController
 {
-    #[Route(name: 'app_perso_index', methods: ['GET'])]
+    #[Route('/perso',name: 'app_perso_index', methods: ['GET'])]
     public function index(PersoRepository $persoRepository): Response
     {
         return $this->render('perso/index.html.twig', [
@@ -27,7 +27,7 @@ final class PersoController extends AbstractController
     }
 
   
-    #[Route('/new', name: 'app_perso_new', methods: ['GET', 'POST'])]
+    #[Route( name: 'app_perso_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $perso = new Perso();
