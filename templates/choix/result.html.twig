@@ -83,6 +83,15 @@
         <h2>RESULTAT :</h2>
         <div class="result-text">
             <p>{{ choix.texte }}</p>
+            {% if choix.hp|number_format(0, '.', '') > 0 %}
+                <p>Vous avez gagné {{ choix.hp }} hp</p>
+            {% else %}
+                <p>Vous avez perdu {{ choix.hp }} hp</p>
+            {% endif %}
+
+
+            <p>Vous avez gagné {{ choix.intelligence }} point d'intelligence</p>
+            <p>Vous avez perdu {{ choix.attaque }} point d'attaque</p>
         </div>
 
         {% if isGameOver %}
